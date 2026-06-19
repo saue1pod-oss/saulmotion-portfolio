@@ -26,9 +26,16 @@ export interface ProjectSummary {
   featured?: boolean
 }
 
+export interface AdditionalVideo {
+  _key: string
+  videoUrl: string
+  caption?: string
+}
+
 export interface ProjectFull extends ProjectSummary {
   client?: string
-  videoUrl?: string
+  mainVideo?: string
+  additionalVideos?: AdditionalVideo[]
   caseStudy?: PortableTextBlock[]
 }
 

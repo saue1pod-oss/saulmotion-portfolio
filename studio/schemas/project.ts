@@ -43,10 +43,39 @@ export const projectType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'videoUrl',
-      title: 'Video URL',
+      name: 'mainVideo',
+      title: 'Main Video URL',
       type: 'url',
-      description: 'Link to Vimeo video',
+      description: 'Primary Vimeo video shown in the project hero',
+    }),
+    defineField({
+      name: 'additionalVideos',
+      title: 'Additional Videos',
+      type: 'array',
+      description: 'Extra videos shown below the case study (optional)',
+      of: [
+        {
+          type: 'object',
+          name: 'videoItem',
+          title: 'Video',
+          fields: [
+            defineField({
+              name: 'videoUrl',
+              title: 'Video URL',
+              type: 'url',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+            }),
+          ],
+          preview: {
+            select: {title: 'videoUrl', subtitle: 'caption'},
+          },
+        },
+      ],
     }),
     defineField({
       name: 'shortDescription',
