@@ -20,6 +20,7 @@ export interface ProjectSummary {
   slug: { current: string }
   category: ProjectCategory
   coverImage: SanityImage
+  mainVideo?: string
   shortDescription?: string
   order?: number
   year?: number

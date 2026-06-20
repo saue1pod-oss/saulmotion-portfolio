@@ -4,6 +4,7 @@ import Link from 'next/link'
 import {PortableText} from '@portabletext/react'
 import {getProjectBySlug} from '@/lib/queries'
 import {urlFor} from '@/lib/sanity'
+import {toVimeoEmbed} from '@/lib/utils'
 
 interface Props {
   params: {slug: string}
@@ -120,9 +121,3 @@ export default async function ProjectPage({params}: Props) {
   )
 }
 
-function toVimeoEmbed(url: string): string {
-  // https://vimeo.com/123456789 → https://player.vimeo.com/video/123456789
-  const match = url.match(/vimeo\.com\/(\d+)/)
-  if (match) return `https://player.vimeo.com/video/${match[1]}`
-  return url
-}

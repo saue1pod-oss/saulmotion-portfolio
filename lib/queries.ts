@@ -7,6 +7,7 @@ const projectSummaryFields = `
   slug,
   category,
   coverImage,
+  mainVideo,
   shortDescription,
   order,
   year,
