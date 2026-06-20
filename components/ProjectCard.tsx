@@ -18,7 +18,7 @@ export default function ProjectCard({project}: {project: ProjectSummary}) {
   const [isHovered, setIsHovered] = useState(false)
 
   const imageUrl = project.coverImage
-    ? urlFor(project.coverImage).width(800).height(600).fit('crop').url()
+    ? urlFor(project.coverImage).width(800).height(450).fit('crop').url()
     : null
 
   const videoId = project.mainVideo ? toVimeoId(project.mainVideo) : null
@@ -77,7 +77,7 @@ export default function ProjectCard({project}: {project: ProjectSummary}) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div ref={containerRef} className="relative aspect-[4/3] overflow-hidden">
+      <div ref={containerRef} className="relative aspect-video overflow-hidden">
         {/* Cover image — fades out when video is active */}
         {imageUrl ? (
           <Image

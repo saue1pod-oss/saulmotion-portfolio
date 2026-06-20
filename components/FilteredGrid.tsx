@@ -16,15 +16,9 @@ export default function FilteredGrid({projects}: {projects: ProjectSummary[]}) {
       <div className="mb-8">
         <FilterBar active={active} onChange={setActive} />
       </div>
-      <div className="grid grid-cols-1 gap-px bg-neutral-800 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filtered.map((project) => (
-          <div
-            key={project._id}
-            className="bg-black transition-opacity duration-300"
-            style={{opacity: 1}}
-          >
-            <ProjectCard project={project} />
-          </div>
+          <ProjectCard key={project._id} project={project} />
         ))}
       </div>
       {filtered.length === 0 && (
