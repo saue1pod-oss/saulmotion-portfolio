@@ -7,6 +7,7 @@ const projectSummaryFields = `
   slug,
   category,
   coverImage,
+  mainVideo,
   shortDescription,
   order,
   year,
@@ -24,7 +25,8 @@ export async function getProjectBySlug(slug: string): Promise<ProjectFull | null
     `*[_type == "project" && slug.current == $slug][0] {
       ${projectSummaryFields},
       client,
-      videoUrl,
+      mainVideo,
+      additionalVideos[]{_key, videoUrl, caption},
       caseStudy
     }`,
     {slug},

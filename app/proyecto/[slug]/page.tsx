@@ -4,6 +4,7 @@ import Link from 'next/link'
 import {PortableText} from '@portabletext/react'
 import {getProjectBySlug} from '@/lib/queries'
 import {urlFor} from '@/lib/sanity'
+import {toVimeoEmbed} from '@/lib/utils'
 
 interface Props {
   params: {slug: string}
@@ -72,12 +73,12 @@ export default async function ProjectPage({params}: Props) {
           </p>
         )}
 
-        {/* Vimeo embed */}
-        {project.videoUrl && (
+        {/* Main video */}
+        {project.mainVideo && (
           <div className="mb-12">
             <div className="relative aspect-video w-full overflow-hidden">
               <iframe
-                src={toVimeoEmbed(project.videoUrl)}
+                src={toVimeoEmbed(project.mainVideo)}
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 h-full w-full"
@@ -93,14 +94,30 @@ export default async function ProjectPage({params}: Props) {
             <PortableText value={project.caseStudy} />
           </div>
         )}
+
+        {/* Additional videos */}
+        {project.additionalVideos && project.additionalVideos.length > 0 && (
+          <div className="mt-16 space-y-10">
+            {project.additionalVideos.map((v) => (
+              <div key={v._key}>
+                <div className="relative aspect-video w-full overflow-hidden">
+                  <iframe
+                    src={toVimeoEmbed(v.videoUrl)}
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 h-full w-full"
+                    title={v.caption ?? project.title}
+                  />
+                </div>
+                {v.caption && (
+                  <p className="mt-3 text-sm text-neutral-400">{v.caption}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   )
 }
 
-function toVimeoEmbed(url: string): string {
-  // https://vimeo.com/123456789 → https://player.vimeo.com/video/123456789
-  const match = url.match(/vimeo\.com\/(\d+)/)
-  if (match) return `https://player.vimeo.com/video/${match[1]}`
-  return url
-}

@@ -20,15 +20,23 @@ export interface ProjectSummary {
   slug: { current: string }
   category: ProjectCategory
   coverImage: SanityImage
+  mainVideo?: string
   shortDescription?: string
   order?: number
   year?: number
   featured?: boolean
 }
 
+export interface AdditionalVideo {
+  _key: string
+  videoUrl: string
+  caption?: string
+}
+
 export interface ProjectFull extends ProjectSummary {
   client?: string
-  videoUrl?: string
+  mainVideo?: string
+  additionalVideos?: AdditionalVideo[]
   caseStudy?: PortableTextBlock[]
 }
 
