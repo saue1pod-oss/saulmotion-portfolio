@@ -35,6 +35,7 @@ export interface AdditionalVideo {
 
 export interface ProjectFull extends ProjectSummary {
   client?: string
+  collaborators?: string
   mainVideo?: string
   additionalVideos?: AdditionalVideo[]
   caseStudy?: PortableTextBlock[]

@@ -1,82 +1,89 @@
 import {notFound} from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import {PortableText} from '@portabletext/react'
 import {getProjectBySlug} from '@/lib/queries'
-import {urlFor} from '@/lib/sanity'
-import {toVimeoEmbed} from '@/lib/utils'
+import {toVimeoEmbed, toVimeoId} from '@/lib/utils'
+import VideoThumbnail from '@/components/VideoThumbnail'
 
 interface Props {
   params: {slug: string}
 }
 
+const sectionLabel = 'text-[11px] uppercase tracking-[0.18em] text-white/40 font-medium'
+
 export default async function ProjectPage({params}: Props) {
   const project = await getProjectBySlug(params.slug)
-
   if (!project) notFound()
 
-  const coverUrl = project.coverImage
-    ? urlFor(project.coverImage).width(1600).height(900).fit('crop').url()
-    : null
+  const metadata: {label: string; value: string}[] = [
+    ...(project.client        ? [{label: 'Client',  value: project.client}]        : []),
+    ...(project.year          ? [{label: 'Year',    value: String(project.year)}]   : []),
+    ...(project.collaborators ? [{label: 'Studio',  value: project.collaborators}]  : []),
+  ]
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      {/* Cover image */}
-      {coverUrl && (
-        <div className="relative h-[60vh] w-full">
-          <Image
-            src={coverUrl}
-            alt={project.title}
-            fill
-            priority
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        </div>
-      )}
-
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        {/* Back */}
+    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0]">
+      {/* ── Nav ───────────────────────────────────────────────── */}
+      <nav className="flex items-center justify-between px-6 py-5 md:px-10">
         <Link
           href="/"
-          className="mb-10 inline-block text-xs uppercase tracking-widest text-neutral-400 hover:text-white"
+          className="text-[11px] uppercase tracking-[0.18em] text-white/50 transition-colors hover:text-white/90"
+        >
+          SaulMotion
+        </Link>
+        <Link
+          href="/"
+          className="text-[11px] uppercase tracking-[0.18em] text-white/40 transition-colors hover:text-white/70"
         >
           ← Back
         </Link>
+      </nav>
 
-        {/* Meta */}
-        <p className="mb-2 text-xs uppercase tracking-widest text-neutral-400">
-          {project.category}
-        </p>
-        <h1 className="mb-6 text-4xl font-light leading-tight md:text-5xl">
-          {project.title}
-        </h1>
+      <div className="mx-auto max-w-screen-xl px-6 pb-32 md:px-10">
 
-        <div className="mb-10 flex gap-8 text-sm text-neutral-400">
-          {project.client && (
-            <div>
-              <span className="block text-xs uppercase tracking-widest">Client</span>
-              <span className="text-white">{project.client}</span>
-            </div>
+        {/* ── 1. Text + Metadata ────────────────────────────────── */}
+        <section className="mb-14 max-w-[620px] pt-6">
+          {/* Eyebrow */}
+          {project.category && (
+            <p
+              className="mb-4 text-[11px] font-medium uppercase tracking-[0.2em]"
+              style={{color: '#FF454E'}}
+            >
+              {project.category}
+            </p>
           )}
-          {project.year && (
-            <div>
-              <span className="block text-xs uppercase tracking-widest">Year</span>
-              <span className="text-white">{project.year}</span>
-            </div>
+
+          {/* Title */}
+          <h1
+            className="mb-5 font-serif text-[36px] italic leading-[1.08] tracking-[-0.02em] md:text-[42px]"
+          >
+            {project.title}
+          </h1>
+
+          {/* Short description */}
+          {project.shortDescription && (
+            <p className="mb-8 text-[14px] leading-[1.65] text-white/70">
+              {project.shortDescription}
+            </p>
           )}
-        </div>
 
-        {project.shortDescription && (
-          <p className="mb-12 text-lg leading-relaxed text-neutral-300">
-            {project.shortDescription}
-          </p>
-        )}
+          {/* Metadata */}
+          {metadata.length > 0 && (
+            <dl className="border-t border-white/[0.10] pt-5 space-y-2.5">
+              {metadata.map(({label, value}) => (
+                <div key={label} className="flex gap-6 text-[13px]">
+                  <dt className="w-16 shrink-0 text-white/40">{label}</dt>
+                  <dd className="text-white/80">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </section>
 
-        {/* Main video */}
+        {/* ── 2. Main video ─────────────────────────────────────── */}
         {project.mainVideo && (
-          <div className="mb-12">
-            <div className="relative aspect-video w-full overflow-hidden">
+          <section className="mb-20">
+            <div className="relative aspect-video w-full overflow-hidden rounded-sm">
               <iframe
                 src={toVimeoEmbed(project.mainVideo)}
                 allow="autoplay; fullscreen; picture-in-picture"
@@ -85,39 +92,44 @@ export default async function ProjectPage({params}: Props) {
                 title={project.title}
               />
             </div>
-          </div>
+          </section>
         )}
 
-        {/* Case study */}
-        {project.caseStudy && project.caseStudy.length > 0 && (
-          <div className="prose prose-invert prose-neutral max-w-none">
-            <PortableText value={project.caseStudy} />
-          </div>
-        )}
-
-        {/* Additional videos */}
+        {/* ── 3. Additional footage ─────────────────────────────── */}
         {project.additionalVideos && project.additionalVideos.length > 0 && (
-          <div className="mt-16 space-y-10">
-            {project.additionalVideos.map((v) => (
-              <div key={v._key}>
-                <div className="relative aspect-video w-full overflow-hidden">
-                  <iframe
-                    src={toVimeoEmbed(v.videoUrl)}
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 h-full w-full"
-                    title={v.caption ?? project.title}
-                  />
-                </div>
-                {v.caption && (
-                  <p className="mt-3 text-sm text-neutral-400">{v.caption}</p>
-                )}
-              </div>
-            ))}
-          </div>
+          <section className="mb-20">
+            <p className={`${sectionLabel} mb-5`}>Additional Footage</p>
+            <div className="grid grid-cols-1 gap-[14px] sm:grid-cols-2 lg:grid-cols-3">
+              {project.additionalVideos.map((v) => {
+                const vid = toVimeoId(v.videoUrl)
+                return (
+                  <div key={v._key}>
+                    <VideoThumbnail
+                      videoId={vid}
+                      title={v.caption ?? project.title}
+                      className="aspect-video"
+                    />
+                    {v.caption && (
+                      <p className="mt-2 text-[11px] text-white/40">{v.caption}</p>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </section>
         )}
+
+        {/* ── 4. Case study ─────────────────────────────────────── */}
+        {project.caseStudy && project.caseStudy.length > 0 && (
+          <section className="max-w-[620px]">
+            <p className={`${sectionLabel} mb-6`}>Case Study</p>
+            <div className="space-y-5 text-[13px] leading-[1.75] text-white/70">
+              <PortableText value={project.caseStudy} />
+            </div>
+          </section>
+        )}
+
       </div>
     </main>
   )
 }
-

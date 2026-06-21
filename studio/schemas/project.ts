@@ -134,6 +134,12 @@ export const projectType = defineType({
       type: 'number',
     }),
     defineField({
+      name: 'collaborators',
+      title: 'Studio / Team',
+      type: 'string',
+      description: 'e.g. "Studio Somewhere" or "with Motion Team X"',
+    }),
+    defineField({
       name: 'featured',
       title: 'Featured',
       type: 'boolean',
