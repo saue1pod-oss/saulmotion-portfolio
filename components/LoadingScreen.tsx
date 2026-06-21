@@ -46,7 +46,7 @@ export default function LoadingScreen() {
             animationData={animData}
             loop={false}
             autoplay
-            renderer="canvas"
+            renderer={"canvas" as "svg"}
             onComplete={handleComplete}
           />
         </div>
