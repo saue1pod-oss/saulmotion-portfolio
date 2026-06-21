@@ -1,33 +1,30 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import {useEffect, useLayoutEffect, useState} from 'react'
 import {usePathname} from 'next/navigation'
 import Lottie from 'lottie-react'
+
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 const STORAGE_KEY = 'sm_loading_seen'
 const LOTTIE_PATH = '/lottie/saulmotion-logo.json'
 
 export default function LoadingScreen() {
   const pathname = usePathname()
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
   const [fadingOut, setFadingOut] = useState(false)
   const [animData, setAnimData] = useState<object | null>(null)
 
-  useEffect(() => {
-    // Only on home, only once per session
-    if (pathname !== '/') return
-    if (sessionStorage.getItem(STORAGE_KEY)) return
-
-    // Mark immediately — prevents re-trigger on accidental refresh mid-animation
+  useIsomorphicLayoutEffect(() => {
+    if (pathname !== '/' || sessionStorage.getItem(STORAGE_KEY)) {
+      setVisible(false)
+      return
+    }
     sessionStorage.setItem(STORAGE_KEY, '1')
-
-    // Load Lottie JSON and show overlay
     fetch(LOTTIE_PATH)
       .then((r) => r.json())
-      .then((data) => {
-        setAnimData(data)
-        setVisible(true)
-      })
+      .then((data) => setAnimData(data))
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleComplete() {
