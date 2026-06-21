@@ -5,7 +5,6 @@ import {PortableText} from '@portabletext/react'
 import {getProjectBySlug} from '@/lib/queries'
 import {urlFor} from '@/lib/sanity'
 import {toVimeoEmbed} from '@/lib/utils'
-import Nav from '@/components/Nav'
 
 interface Props {
   params: {slug: string}
@@ -22,8 +21,6 @@ export default async function ProjectPage({params}: Props) {
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <Nav />
-
       <div className="mx-auto max-w-3xl px-6 py-10">
         {/* Back */}
         <Link
