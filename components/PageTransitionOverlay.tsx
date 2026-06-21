@@ -48,14 +48,15 @@ export default function PageTransitionOverlay() {
       if (isActive.current) return   // already transitioning
 
       e.preventDefault()
+      e.stopPropagation()  // prevent Next.js <Link> handler from firing
       pendingHref.current  = href
       isActive.current     = true
       isCoveringRef.current = true
       setIsVisible(true)
     }
 
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
+    document.addEventListener('click', handleClick, {capture: true})
+    return () => document.removeEventListener('click', handleClick, {capture: true})
   }, [pathname])
 
   // Fires when the panel's `animate` state ("visible") completes.
