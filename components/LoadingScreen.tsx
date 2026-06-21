@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useLayoutEffect, useState} from 'react'
+import {useEffect, useLayoutEffect, useRef, useState} from 'react'
 import {usePathname} from 'next/navigation'
 import Lottie from 'lottie-react'
 
@@ -15,8 +15,14 @@ export default function LoadingScreen() {
   const [visible, setVisible] = useState(true)
   const [fadingOut, setFadingOut] = useState(false)
   const [animData, setAnimData] = useState<object | null>(null)
+  // Guard against React 18 Strict Mode double-invoking the effect: useRef persists
+  // across the fake unmount/remount cycle, state does not.
+  const didInit = useRef(false)
 
   useIsomorphicLayoutEffect(() => {
+    if (didInit.current) return
+    didInit.current = true
+
     if (pathname !== '/' || sessionStorage.getItem(STORAGE_KEY)) {
       setVisible(false)
       return
