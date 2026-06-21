@@ -46,6 +46,7 @@ export default function LoadingScreen() {
             animationData={animData}
             loop={false}
             autoplay
+            renderer="canvas"
             onComplete={handleComplete}
           />
         </div>
