@@ -15,7 +15,7 @@ const PANEL_ENTER   = {duration: 0.2,  ease: 'easeOut'} as const
 const PANEL_EXIT    = {duration: 0.28, ease: 'easeIn'}  as const
 const LOGO_ENTER    = {duration: 0.25, ease: [0.33, 1, 0.68, 1]} as const
 const LOGO_EXIT     = {duration: 0.28, ease: 'easeIn'}  as const
-const HOLD_MS       = 430  // how long the overlay stays before AnimatePresence exit
+const HOLD_MS       = 1430 // how long the overlay stays before AnimatePresence exit
 
 export default function PageTransitionOverlay() {
   const pathname = usePathname()
