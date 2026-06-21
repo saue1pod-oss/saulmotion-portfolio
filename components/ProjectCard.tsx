@@ -77,7 +77,11 @@ export default function ProjectCard({project}: {project: ProjectSummary}) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div ref={containerRef} className="relative aspect-video overflow-hidden">
+      <div
+        ref={containerRef}
+        className="relative aspect-video overflow-hidden"
+        style={project.featured ? {boxShadow: '0 0 0 1px rgba(255,69,78,0.5)'} : undefined}
+      >
         {/* Cover image — fades out when video is active */}
         {imageUrl ? (
           <Image
@@ -112,7 +116,7 @@ export default function ProjectCard({project}: {project: ProjectSummary}) {
         <p className="mb-1 text-xs uppercase tracking-widest text-neutral-400">
           {project.category}
         </p>
-        <h2 className="text-sm font-medium text-white">{project.title}</h2>
+        <h2 className="font-serif text-sm italic text-white">{project.title}</h2>
       </div>
     </Link>
   )
