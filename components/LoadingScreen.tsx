@@ -5,8 +5,7 @@ import {usePathname} from 'next/navigation'
 import Lottie from 'lottie-react'
 
 const STORAGE_KEY = 'sm_loading_seen'
-// Update this filename if the file is renamed (currently has double extension)
-const LOTTIE_PATH = '/lottie/saulmotion-logo.json.json'
+const LOTTIE_PATH = '/lottie/saulmotion-logo.json'
 
 export default function LoadingScreen() {
   const pathname = usePathname()
