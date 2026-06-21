@@ -79,7 +79,7 @@ export default function ProjectCard({project}: {project: ProjectSummary}) {
     >
       <div
         ref={containerRef}
-        className="relative aspect-video overflow-hidden"
+        className="relative aspect-video overflow-hidden rounded-sm"
         style={project.featured ? {boxShadow: '0 0 0 1px rgba(255,69,78,0.5)'} : undefined}
       >
         {/* Cover image — fades out when video is active */}

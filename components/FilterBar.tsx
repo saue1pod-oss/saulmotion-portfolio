@@ -26,7 +26,7 @@ export default function FilterBar({active, onChange}: FilterBarProps) {
           <button
             key={cat}
             onClick={() => onChange(cat)}
-            className="px-4 py-1.5 text-xs uppercase tracking-widest transition-all duration-150"
+            className="rounded-full px-4 py-1.5 text-xs uppercase tracking-widest transition-all duration-150"
             style={
               isActive
                 ? {border: `1px solid ${BRAND}`, color: BRAND, background: BRAND_BG}

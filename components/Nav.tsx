@@ -8,9 +8,9 @@ export default function Nav() {
         <Image
           src="/images/saulmotion-wordmark-white.png"
           alt="SaulMotion"
-          height={20}
-          width={120}
-          style={{height: 20, width: 'auto'}}
+          height={28}
+          width={168}
+          style={{height: 28, width: 'auto'}}
           priority
         />
       </Link>
