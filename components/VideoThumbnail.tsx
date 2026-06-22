@@ -69,7 +69,7 @@ export default function VideoThumbnail({videoId, title, coverImageUrl, featured,
   return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden rounded-sm ${className}`}
+      className={`relative overflow-hidden rounded-3xl ${className}`}
       style={featured ? {boxShadow: '0 0 0 1px rgba(255,69,78,0.5)'} : undefined}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
