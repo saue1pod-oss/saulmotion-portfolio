@@ -83,6 +83,7 @@ export default async function ProjectPage({params}: Props) {
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 h-full w-full"
+                style={{borderRadius: 0}}
                 title={project.title}
               />
             </div>
