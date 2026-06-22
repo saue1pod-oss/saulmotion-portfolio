@@ -9,17 +9,13 @@ interface Props {
   title: string
   coverImageUrl?: string | null
   featured?: boolean
+  /** When true: plays automatically on viewport entry, no hover interaction */
+  autoplay?: boolean
   /** Extra classes for the outer wrapper (aspect ratio, etc.) */
   className?: string
 }
 
-/**
- * Reusable hover-video thumbnail.
- * Lazy-mounts the Vimeo iframe via IntersectionObserver, initialises the
- * SDK only after the iframe is in the DOM, and plays/pauses on hover.
- * Used by both ProjectCard (home grid) and the footage grid on project pages.
- */
-export default function VideoThumbnail({videoId, title, coverImageUrl, featured, className = ''}: Props) {
+export default function VideoThumbnail({videoId, title, coverImageUrl, featured, autoplay = false, className = ''}: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const iframeRef    = useRef<HTMLIFrameElement>(null)
   const playerRef    = useRef<Player | null>(null)
@@ -28,7 +24,7 @@ export default function VideoThumbnail({videoId, title, coverImageUrl, featured,
   const [videoReady, setVideoReady] = useState(false)
   const [isHovered,  setIsHovered]  = useState(false)
 
-  // Level 1: mount iframe only when container enters viewport (skip if no video)
+  // Level 1: mount iframe when container enters viewport (skip if no video)
   useEffect(() => {
     if (!videoId || !containerRef.current) return
     const observer = new IntersectionObserver(
@@ -45,26 +41,30 @@ export default function VideoThumbnail({videoId, title, coverImageUrl, featured,
     const player = new Player(iframeRef.current)
     playerRef.current = player
     player.ready().then(() => {
-      player.pause().catch(() => null)
+      if (autoplay) {
+        player.play().catch(() => null)
+      } else {
+        player.pause().catch(() => null)
+      }
       setVideoReady(true)
     })
     return () => { player.destroy(); playerRef.current = null }
   }, [isMounted])
 
   function handleMouseEnter() {
-    if (!playerRef.current || !videoReady) return
+    if (autoplay || !playerRef.current || !videoReady) return
     setIsHovered(true)
     playerRef.current.play().catch(() => null)
   }
 
   function handleMouseLeave() {
-    if (!playerRef.current) return
+    if (autoplay || !playerRef.current) return
     setIsHovered(false)
     playerRef.current.pause().catch(() => null)
     playerRef.current.setCurrentTime(0).catch(() => null)
   }
 
-  const showVideo = isHovered && videoReady
+  const showVideo = autoplay ? videoReady : (isHovered && videoReady)
 
   return (
     <div
@@ -74,7 +74,7 @@ export default function VideoThumbnail({videoId, title, coverImageUrl, featured,
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Cover image */}
+      {/* Cover image — fades out once video is ready (autoplay) or on hover */}
       {coverImageUrl ? (
         <Image
           src={coverImageUrl}

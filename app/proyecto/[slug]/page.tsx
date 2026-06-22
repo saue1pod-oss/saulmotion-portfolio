@@ -101,6 +101,7 @@ export default async function ProjectPage({params}: Props) {
                     <VideoThumbnail
                       videoId={vid}
                       title={v.caption ?? project.title}
+                      autoplay
                       className="aspect-video"
                     />
                     {v.caption && (
