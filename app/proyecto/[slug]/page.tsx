@@ -23,21 +23,15 @@ export default async function ProjectPage({params}: Props) {
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0]">
-      {/* ── Nav ───────────────────────────────────────────────── */}
-      <nav className="flex items-center justify-between px-6 py-5 md:px-10">
-        <Link
-          href="/"
-          className="text-[11px] uppercase tracking-[0.18em] text-white/50 transition-colors hover:text-white/90"
-        >
-          SaulMotion
-        </Link>
+      {/* ── Back ──────────────────────────────────────────────── */}
+      <div className="flex justify-end px-6 py-3 md:px-10">
         <Link
           href="/"
           className="text-[11px] uppercase tracking-[0.18em] text-white/40 transition-colors hover:text-white/70"
         >
           ← Back
         </Link>
-      </nav>
+      </div>
 
       <div className="mx-auto max-w-screen-xl px-6 pb-32 md:px-10">
 

@@ -8,6 +8,7 @@ interface Props {
   videoId?: string | null
   title: string
   coverImageUrl?: string | null
+  featured?: boolean
   /** Extra classes for the outer wrapper (aspect ratio, etc.) */
   className?: string
 }
@@ -18,7 +19,7 @@ interface Props {
  * SDK only after the iframe is in the DOM, and plays/pauses on hover.
  * Used by both ProjectCard (home grid) and the footage grid on project pages.
  */
-export default function VideoThumbnail({videoId, title, coverImageUrl, className = ''}: Props) {
+export default function VideoThumbnail({videoId, title, coverImageUrl, featured, className = ''}: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const iframeRef    = useRef<HTMLIFrameElement>(null)
   const playerRef    = useRef<Player | null>(null)
@@ -69,6 +70,7 @@ export default function VideoThumbnail({videoId, title, coverImageUrl, className
     <div
       ref={containerRef}
       className={`relative overflow-hidden rounded-sm ${className}`}
+      style={featured ? {boxShadow: '0 0 0 1px rgba(255,69,78,0.5)'} : undefined}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

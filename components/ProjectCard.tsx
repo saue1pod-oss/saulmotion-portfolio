@@ -22,6 +22,7 @@ export default function ProjectCard({project}: {project: ProjectSummary}) {
         videoId={videoId}
         title={project.title}
         coverImageUrl={coverImageUrl}
+        featured={project.featured}
         className="aspect-video"
       />
 
@@ -29,7 +30,7 @@ export default function ProjectCard({project}: {project: ProjectSummary}) {
         <p className="mb-1 text-xs uppercase tracking-widest text-neutral-400">
           {project.category}
         </p>
-        <h2 className="text-sm font-medium text-white">{project.title}</h2>
+        <h2 className="font-serif text-sm italic text-white">{project.title}</h2>
       </div>
     </Link>
   )
