@@ -77,7 +77,7 @@ export default async function ProjectPage({params}: Props) {
         {/* ── 2. Main video ─────────────────────────────────────── */}
         {project.mainVideo && (
           <section className="mb-20">
-            <div className="relative aspect-video w-full overflow-hidden rounded-sm">
+            <div className="relative aspect-video w-full overflow-hidden rounded-xl" style={{transform: 'translateZ(0)'}}>
               <iframe
                 src={toVimeoEmbed(project.mainVideo)}
                 allow="autoplay; fullscreen; picture-in-picture"
