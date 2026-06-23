@@ -9,9 +9,9 @@ const NAV_LINKS = [
 ]
 
 const SOCIAL_LINKS = [
-  {label: 'Instagram', href: '#'},
-  {label: 'LinkedIn',  href: '#'},
-  {label: 'Vimeo',     href: '#'},
+  {label: 'Instagram', href: 'https://www.instagram.com/se.hdz/'},
+  {label: 'LinkedIn',  href: 'https://www.linkedin.com/in/saulhernandezrojas/'},
+  {label: 'Vimeo',     href: 'https://vimeo.com/shdz'},
 ]
 
 export default function Footer() {
