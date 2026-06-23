@@ -2,7 +2,7 @@ import {notFound} from 'next/navigation'
 import Link from 'next/link'
 import {PortableText} from '@portabletext/react'
 import {getProjectBySlug} from '@/lib/queries'
-import {toVimeoEmbed, toVimeoId} from '@/lib/utils'
+import {toVimeoBackground, toVimeoId} from '@/lib/utils'
 import VideoThumbnail from '@/components/VideoThumbnail'
 
 interface Props {
@@ -79,9 +79,8 @@ export default async function ProjectPage({params}: Props) {
           <section className="mb-20">
             <div className="relative aspect-video w-full overflow-hidden rounded-xl" style={{transform: 'translateZ(0)'}}>
               <iframe
-                src={toVimeoEmbed(project.mainVideo)}
-                allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
+                src={toVimeoBackground(project.mainVideo)}
+                allow="autoplay"
                 className="absolute inset-0 h-full w-full"
                 style={{borderRadius: 0}}
                 title={project.title}
