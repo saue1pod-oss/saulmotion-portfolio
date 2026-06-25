@@ -1,5 +1,11 @@
 export type ProjectCategory = 'Showreel' | 'Logo animation' | 'Brand identity'
 
+export interface AboutData {
+  photo: SanityImage
+  paragraph1: string
+  paragraph2: string
+}
+
 export interface SanityImage {
   _type: 'image'
   asset: {

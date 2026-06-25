@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import type {Metadata} from 'next'
+import {getAboutData} from '@/lib/queries'
+import {urlFor} from '@/lib/sanity'
 
 export const metadata: Metadata = {
   title: 'About — SaulMotion',
@@ -7,7 +9,21 @@ export const metadata: Metadata = {
     "Hey, I'm Saúl — a motion designer based in Bogotá, Colombia, specialized in brand animation and identity systems.",
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const about = await getAboutData()
+
+  const photoSrc = about?.photo
+    ? urlFor(about.photo).width(800).height(800).fit('crop').url()
+    : '/images/saul-photo.jpeg'
+
+  const paragraph1 =
+    about?.paragraph1 ??
+    'A motion designer based in Bogotá, Colombia. I specialize in brand animation: giving identity systems a way to move, breathe, and connect across every screen.'
+
+  const paragraph2 =
+    about?.paragraph2 ??
+    "With 5 years of experience working alongside leading creative agencies, I've helped brands like Terpel, Ramo, JGB, and Caracol TV bring their identities to life through animated logos, motion systems, and rebranding narratives. For me, the goal is always the same: identity that moves with purpose."
+
   return (
     <main>
       <div
@@ -42,23 +58,14 @@ export default function AboutPage() {
                 className="text-[14px] leading-[1.75]"
                 style={{color: 'rgba(245,245,240,0.7)'}}
               >
-                A motion designer based in Bogotá, Colombia. I specialize in{' '}
-                <span className="font-medium text-[#F5F5F0]">brand animation</span>: giving
-                identity systems a way to move, breathe, and connect across every screen.
+                {paragraph1}
               </p>
 
               <p
                 className="text-[14px] leading-[1.75]"
                 style={{color: 'rgba(245,245,240,0.7)'}}
               >
-                With 5 years of experience working alongside leading creative agencies, I&apos;ve
-                helped brands like{' '}
-                <span className="font-medium text-[#F5F5F0]">
-                  Terpel, Ramo, JGB, and Caracol TV
-                </span>{' '}
-                bring their identities to life through animated logos, motion systems, and
-                rebranding narratives. For me, the goal is always the same: identity that moves
-                with purpose.
+                {paragraph2}
               </p>
             </div>
           </div>
@@ -70,7 +77,7 @@ export default function AboutPage() {
               style={{aspectRatio: '1/1', borderRadius: 24, background: '#1B1B1B'}}
             >
               <Image
-                src="/images/saul-photo.jpeg"
+                src={photoSrc}
                 alt="Saúl Hernández"
                 fill
                 className="object-cover"

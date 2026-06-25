@@ -1,5 +1,5 @@
 import {client} from './sanity'
-import type {ProjectSummary, ProjectFull} from './types'
+import type {ProjectSummary, ProjectFull, AboutData} from './types'
 
 const projectSummaryFields = `
   _id,
@@ -17,6 +17,12 @@ const projectSummaryFields = `
 export async function getAllProjects(): Promise<ProjectSummary[]> {
   return client.fetch(
     `*[_type == "project"] | order(order asc, year desc) { ${projectSummaryFields} }`,
+  )
+}
+
+export async function getAboutData(): Promise<AboutData | null> {
+  return client.fetch(
+    `*[_type == "about"][0]{ photo, paragraph1, paragraph2 }`,
   )
 }
 
