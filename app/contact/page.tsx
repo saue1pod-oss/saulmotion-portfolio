@@ -1,8 +1,10 @@
 import ContactForm from './ContactForm'
+import type {Metadata} from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Contact — SaulMotion',
-  description: 'Get in touch with Saúl — motion designer based in Bogotá.',
+  description:
+    'Get in touch with SaulMotion for motion design projects, brand animation, and identity systems.',
 }
 
 export default function ContactPage() {

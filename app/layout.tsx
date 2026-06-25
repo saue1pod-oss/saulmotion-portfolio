@@ -18,7 +18,43 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'SaulMotion — Motion Design Portfolio',
-  description: 'Motion design portfolio by Saul — showreels, logo animations, and brand identity.',
+  description:
+    'Motion designer based in Bogotá, Colombia. Specialized in brand animation: animated logos, motion systems, and rebranding narratives for legacy brands.',
+  keywords: [
+    'motion design',
+    'brand animation',
+    'motion designer Colombia',
+    'animated logos',
+    'motion graphics',
+    'rebranding',
+  ],
+  authors: [{name: 'Saúl Hernández'}],
+  creator: 'Saúl Hernández',
+  metadataBase: new URL('https://saulmotion.com'),
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://saulmotion.com',
+    siteName: 'SaulMotion',
+    title: 'SaulMotion — Motion Design Portfolio',
+    description:
+      'Motion designer based in Bogotá, Colombia. Specialized in brand animation: animated logos, motion systems, and rebranding narratives for legacy brands.',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'SaulMotion — Identity in motion.',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SaulMotion — Motion Design Portfolio',
+    description:
+      'Motion designer based in Bogotá, Colombia. Specialized in brand animation.',
+    images: ['/images/og-image.png'],
+  },
 }
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
