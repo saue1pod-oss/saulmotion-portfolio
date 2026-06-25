@@ -1,8 +1,10 @@
 import Image from 'next/image'
+import type {Metadata} from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'About — SaulMotion',
-  description: 'Motion designer based in Bogotá, Colombia specializing in brand animation.',
+  description:
+    "Hey, I'm Saúl — a motion designer based in Bogotá, Colombia, specialized in brand animation and identity systems.",
 }
 
 export default function AboutPage() {

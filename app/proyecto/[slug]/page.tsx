@@ -1,12 +1,33 @@
 import {notFound} from 'next/navigation'
 import Link from 'next/link'
+import type {Metadata} from 'next'
 import {PortableText} from '@portabletext/react'
 import {getProjectBySlug} from '@/lib/queries'
+import {urlFor} from '@/lib/sanity'
 import {toVimeoBackground, toVimeoId} from '@/lib/utils'
 import VideoThumbnail from '@/components/VideoThumbnail'
 
 interface Props {
   params: {slug: string}
+}
+
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+  const project = await getProjectBySlug(params.slug)
+  if (!project) return {title: 'SaulMotion'}
+
+  const ogImage = project.coverImage
+    ? [{url: urlFor(project.coverImage).width(1200).height(630).url()}]
+    : [{url: '/images/og-image.png', width: 1200, height: 630}]
+
+  return {
+    title: `${project.title} — SaulMotion`,
+    description: project.shortDescription ?? 'Motion design project by SaulMotion.',
+    openGraph: {
+      title: project.title,
+      description: project.shortDescription ?? 'Motion design project by SaulMotion.',
+      images: ogImage,
+    },
+  }
 }
 
 const sectionLabel = 'text-[11px] uppercase tracking-[0.18em] text-white/40 font-medium'
