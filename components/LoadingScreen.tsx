@@ -53,6 +53,7 @@ export default function LoadingScreen() {
             loop={false}
             autoplay
             renderer={"canvas" as "svg"}
+            rendererSettings={{clearCanvas: true, progressiveLoad: true} as object}
             onComplete={handleComplete}
           />
         </div>
