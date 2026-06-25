@@ -1,5 +1,17 @@
 import {defineField, defineType} from 'sanity'
 
+const paragraphBlock = {
+  type: 'block',
+  styles: [{title: 'Normal', value: 'normal'}],
+  lists: [],
+  marks: {
+    decorators: [
+      {title: 'Highlight', value: 'highlight'},
+    ],
+    annotations: [],
+  },
+} as const
+
 export const aboutType = defineType({
   name: 'about',
   title: 'About',
@@ -15,15 +27,15 @@ export const aboutType = defineType({
     defineField({
       name: 'paragraph1',
       title: 'Paragraph 1',
-      type: 'text',
-      rows: 4,
+      type: 'array',
+      of: [paragraphBlock],
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'paragraph2',
       title: 'Paragraph 2',
-      type: 'text',
-      rows: 5,
+      type: 'array',
+      of: [paragraphBlock],
       validation: (rule) => rule.required(),
     }),
   ],

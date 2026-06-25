@@ -1,13 +1,52 @@
 import Image from 'next/image'
 import type {Metadata} from 'next'
+import {PortableText} from '@portabletext/react'
 import {getAboutData} from '@/lib/queries'
 import {urlFor} from '@/lib/sanity'
+import type {PortableTextBlock} from '@/lib/types'
 
 export const metadata: Metadata = {
   title: 'About — SaulMotion',
   description:
     "Hey, I'm Saúl — a motion designer based in Bogotá, Colombia, specialized in brand animation and identity systems.",
 }
+
+const portableTextComponents = {
+  marks: {
+    highlight: ({children}: {children: React.ReactNode}) => (
+      <span className="font-medium text-[#F5F5F0]">{children}</span>
+    ),
+  },
+}
+
+// Fallback paragraphs shown when no CMS document exists yet
+const fallbackP1: PortableTextBlock[] = [
+  {
+    _type: 'block',
+    _key: 'p1',
+    children: [
+      {_type: 'span', _key: 's1', text: 'A motion designer based in Bogotá, Colombia. I specialize in ', marks: []},
+      {_type: 'span', _key: 's2', text: 'brand animation', marks: ['highlight']},
+      {_type: 'span', _key: 's3', text: ': giving identity systems a way to move, breathe, and connect across every screen.', marks: []},
+    ],
+    markDefs: [],
+    style: 'normal',
+  },
+]
+
+const fallbackP2: PortableTextBlock[] = [
+  {
+    _type: 'block',
+    _key: 'p2',
+    children: [
+      {_type: 'span', _key: 's1', text: "With 5 years of experience working alongside leading creative agencies, I've helped brands like ", marks: []},
+      {_type: 'span', _key: 's2', text: 'Terpel, Ramo, JGB, and Caracol TV', marks: ['highlight']},
+      {_type: 'span', _key: 's3', text: ' bring their identities to life through animated logos, motion systems, and rebranding narratives. For me, the goal is always the same: identity that moves with purpose.', marks: []},
+    ],
+    markDefs: [],
+    style: 'normal',
+  },
+]
 
 export default async function AboutPage() {
   const about = await getAboutData()
@@ -16,13 +55,8 @@ export default async function AboutPage() {
     ? urlFor(about.photo).width(800).height(800).fit('crop').url()
     : '/images/saul-photo.jpeg'
 
-  const paragraph1 =
-    about?.paragraph1 ??
-    'A motion designer based in Bogotá, Colombia. I specialize in brand animation: giving identity systems a way to move, breathe, and connect across every screen.'
-
-  const paragraph2 =
-    about?.paragraph2 ??
-    "With 5 years of experience working alongside leading creative agencies, I've helped brands like Terpel, Ramo, JGB, and Caracol TV bring their identities to life through animated logos, motion systems, and rebranding narratives. For me, the goal is always the same: identity that moves with purpose."
+  const paragraph1 = about?.paragraph1 ?? fallbackP1
+  const paragraph2 = about?.paragraph2 ?? fallbackP2
 
   return (
     <main>
@@ -54,19 +88,19 @@ export default async function AboutPage() {
 
             {/* Body */}
             <div style={{display: 'flex', flexDirection: 'column', gap: 20}}>
-              <p
+              <div
                 className="text-[14px] leading-[1.75]"
                 style={{color: 'rgba(245,245,240,0.7)'}}
               >
-                {paragraph1}
-              </p>
+                <PortableText value={paragraph1} components={portableTextComponents} />
+              </div>
 
-              <p
+              <div
                 className="text-[14px] leading-[1.75]"
                 style={{color: 'rgba(245,245,240,0.7)'}}
               >
-                {paragraph2}
-              </p>
+                <PortableText value={paragraph2} components={portableTextComponents} />
+              </div>
             </div>
           </div>
 

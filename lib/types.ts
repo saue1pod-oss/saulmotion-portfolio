@@ -2,8 +2,8 @@ export type ProjectCategory = 'Showreel' | 'Logo animation' | 'Brand identity'
 
 export interface AboutData {
   photo: SanityImage
-  paragraph1: string
-  paragraph2: string
+  paragraph1: PortableTextBlock[]
+  paragraph2: PortableTextBlock[]
 }
 
 export interface SanityImage {
