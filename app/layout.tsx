@@ -26,7 +26,9 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Nav />
-        <Providers>{children}</Providers>
+        <div className="flex-1">
+          <Providers>{children}</Providers>
+        </div>
         <Footer />
       </body>
     </html>

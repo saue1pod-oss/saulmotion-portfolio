@@ -22,7 +22,7 @@ export default async function ProjectPage({params}: Props) {
   ]
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0]">
+    <main>
       {/* ── Back ──────────────────────────────────────────────── */}
       <div className="flex justify-end px-6 py-3 md:px-10">
         <Link
@@ -82,7 +82,7 @@ export default async function ProjectPage({params}: Props) {
                 src={toVimeoBackground(project.mainVideo)}
                 allow="autoplay"
                 className="absolute inset-0 h-full w-full"
-                style={{borderRadius: 0}}
+                style={{borderRadius: 0, pointerEvents: 'none'}}
                 title={project.title}
               />
             </div>
