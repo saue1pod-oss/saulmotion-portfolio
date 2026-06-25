@@ -13,7 +13,7 @@ export default function AboutPage() {
         style={{paddingTop: 56, paddingBottom: 96}}
       >
         <div
-          className="flex flex-col-reverse gap-14 md:flex-row md:items-start"
+          className="flex flex-col-reverse gap-14 md:flex-row md:items-center"
           style={{gap: undefined}}
         >
           {/* ── Left: text ───────────────────────────────────────── */}
@@ -62,10 +62,10 @@ export default function AboutPage() {
           </div>
 
           {/* ── Right: photo ─────────────────────────────────────── */}
-          <div className="w-full shrink-0 md:w-[300px] lg:w-[360px]">
+          <div className="mx-auto w-full max-w-[320px] shrink-0 md:mx-0 md:w-[300px] lg:w-[360px]">
             <div
               className="relative w-full overflow-hidden"
-              style={{aspectRatio: '3/4', borderRadius: 24, background: '#1B1B1B'}}
+              style={{aspectRatio: '1/1', borderRadius: 24, background: '#1B1B1B'}}
             >
               <Image
                 src="/images/saul-photo.jpg"
