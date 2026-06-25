@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="flex-1">
+    <main>
       <div
         className="mx-auto max-w-screen-xl px-7 md:px-10"
         style={{paddingTop: 56, paddingBottom: 96}}

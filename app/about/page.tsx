@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="flex-1">
+    <main>
       <div
         className="mx-auto max-w-screen-xl px-7 pb-32 pt-14 md:px-10"
         style={{paddingTop: 56, paddingBottom: 96}}

@@ -22,7 +22,7 @@ export default async function ProjectPage({params}: Props) {
   ]
 
   return (
-    <main className="flex-1">
+    <main>
       {/* ── Back ──────────────────────────────────────────────── */}
       <div className="flex justify-end px-6 py-3 md:px-10">
         <Link
