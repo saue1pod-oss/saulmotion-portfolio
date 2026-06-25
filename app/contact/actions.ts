@@ -26,7 +26,7 @@ export async function sendContactEmail(formData: FormData): Promise<ActionResult
       // Replace with your verified Resend domain sender once set up.
       // For sandbox testing use: onboarding@resend.dev
       from: 'onboarding@resend.dev',
-      to: 'hello@saulmotion.com',
+      to: 'saue1pod@gmail.com',
       subject: `New message from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
     })
