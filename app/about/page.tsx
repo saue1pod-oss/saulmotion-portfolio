@@ -68,7 +68,7 @@ export default function AboutPage() {
               style={{aspectRatio: '1/1', borderRadius: 24, background: '#1B1B1B'}}
             >
               <Image
-                src="/images/saul-photo.jpg"
+                src="/images/saul-photo.jpeg"
                 alt="Saúl Hernández"
                 fill
                 className="object-cover"
