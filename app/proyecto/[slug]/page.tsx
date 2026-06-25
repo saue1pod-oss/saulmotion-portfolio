@@ -22,7 +22,7 @@ export default async function ProjectPage({params}: Props) {
   ]
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0]">
+    <main className="min-h-full bg-[#0A0A0A] text-[#F5F5F0]">
       {/* ── Back ──────────────────────────────────────────────── */}
       <div className="flex justify-end px-6 py-3 md:px-10">
         <Link

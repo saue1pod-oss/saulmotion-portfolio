@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F5F5F0]">
+    <main className="min-h-full bg-[#0A0A0A] text-[#F5F5F0]">
       <div
         className="mx-auto max-w-screen-xl px-7 md:px-10"
         style={{paddingTop: 56, paddingBottom: 96}}
@@ -53,7 +53,7 @@ export default function ContactPage() {
                 className="text-[13px] transition-opacity hover:opacity-70"
                 style={{color: '#FF454E'}}
               >
-                hello@saulmotion.com
+                saue1pod@gmail.com
               </a>
             </div>
           </div>
