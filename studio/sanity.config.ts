@@ -10,7 +10,27 @@ export default defineConfig({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Content')
+          .items([
+            S.listItem()
+              .title('About')
+              .id('about')
+              .child(
+                S.document()
+                  .schemaType('about')
+                  .documentId('about-singleton')
+                  .title('About Page'),
+              ),
+            S.divider(),
+            S.documentTypeListItem('project').title('Projects'),
+          ]),
+    }),
+    visionTool(),
+  ],
 
   schema: {
     types: schemaTypes,
