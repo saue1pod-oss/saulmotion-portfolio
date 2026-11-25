@@ -5,6 +5,9 @@ import {getAboutData} from '@/lib/queries'
 import {urlFor} from '@/lib/sanity'
 import type {PortableTextBlock} from '@/lib/types'
 
+// Refresh Sanity content at most every 60 seconds
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'About — SaulMotion',
   description:

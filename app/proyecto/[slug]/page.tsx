@@ -7,6 +7,9 @@ import {urlFor} from '@/lib/sanity'
 import {toVimeoBackground, toVimeoId} from '@/lib/utils'
 import VideoThumbnail from '@/components/VideoThumbnail'
 
+// Refresh Sanity content at most every 60 seconds
+export const revalidate = 60
+
 interface Props {
   params: {slug: string}
 }
